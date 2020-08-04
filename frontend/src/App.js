@@ -1,5 +1,6 @@
 import React from 'react';
 import BoatBoard from './BoatBoard';
+import AddBoatButton from './AddBoatButton';
 import './App.css';
 
 function App() {
@@ -8,8 +9,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Welcome to Fishfry</h1>
-        <p>View Our Boats Below</p>
       </header>
+        <AddBoatButton />
         <BoatBoard />
     </div>
   );

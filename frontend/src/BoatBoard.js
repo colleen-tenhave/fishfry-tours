@@ -32,8 +32,8 @@ class BoatBoard extends Component {
         ]
     }
       return (
-        <div className="board">
-          <Board data={data} editable={true} />
+        <div className="BoatBoard">
+          <Board data={data} editable={true} style={{backgroundColor: 'white'}} />
         </div>
       );
   }
