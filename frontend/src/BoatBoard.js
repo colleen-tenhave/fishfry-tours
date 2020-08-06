@@ -5,12 +5,10 @@ class BoatBoard extends Component {
   constructor(props) {
     super(props);
     this.handleDataChange = this.handleDataChange.bind(this);
-    this.state = {
-      data: this.props.data
-    }
   }
 
   handleDataChange(newData) {
+    //update database with new board data after each change
     fetch(
       "http://localhost:8080/boats", {
         method: 'put',

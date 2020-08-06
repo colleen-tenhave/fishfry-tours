@@ -10,7 +10,7 @@ class App extends Component {
         lanes: []
       }
     };
-   }
+  }
   
   fetchData() {
     fetch("http://localhost:8080/boats")
@@ -22,6 +22,7 @@ class App extends Component {
   }
 
   componentWillMount() {
+    //fetching boat data
     this.fetchData();
   }
 
@@ -29,7 +30,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Welcome to Fishfry</h1>
+          <h1>Welcome to Fishfry's Fleet Tracker</h1>
         </header>
           <BoatBoard data={this.state.data}/>
       </div>

@@ -77,6 +77,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
+  //create boat data db with laneData table if they do not exist
   connection.query("CREATE DATABASE IF NOT EXISTS boatDataDb", function (err, result) {
     if (err) throw err;
   });
@@ -85,7 +86,7 @@ connection.connect(function(err) {
   connection.query(query, function (err, result) {
     if (err) throw err;
   });
-  //if table is empty, insert default data
+  //if table is empty, insert default data with empty lanes
   connection.query("INSERT INTO boats (laneData) SELECT ? WHERE NOT EXISTS (SELECT * FROM Boats)", JSON.stringify(defaultData.laneData), function (error, results, fields) {
     if (error) throw error;
   });
