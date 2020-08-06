@@ -8,9 +8,10 @@ class BoatBoard extends Component {
   }
 
   handleDataChange(newData) {
+    const fetchUrl = this.props.getFetchUrl();
     //update database with new board data after each change
     fetch(
-      "http://fishfry-backend.us-east-2.elasticbeanstalk.com/boats", {
+        fetchUrl, {
         method: 'put',
         headers: {
           "Content-type": "application/json"
