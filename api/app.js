@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var boatDataRouter = require('./routes/boats');
 const { connect } = require('http2');
+var connection = require('./dbconnection');
 
 var app = express();
 
@@ -70,35 +71,24 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var connection = mysql.createConnection({
-  host: process.env.RDS_HOSTNAME || "localhost",
-  user: process.env.RDS_USERNAME || "root",
-  password: process.env.RDS_PASSWORD || "",
-  port: process.env.RDS_PORT
+// If running locally, create a new database and use it
+if(!process.env.RDS_DB_NAME) {
+  connection.query("CREATE DATABASE IF NOT EXISTS boatDataDb", function (err, result) {
+  if (err) throw err;
+});
+  connection.query("USE boatDataDb");
+}else{
+  connection.query(`USE ${process.env.RDS_DB_NAME}`);
+}
+
+var query = "CREATE TABLE IF NOT EXISTS boats (laneData TEXT)"
+connection.query(query, function (err, result) {
+  if (err) throw err;
 });
 
-connection.connect(function(err) {
-  if (err) throw err;
-
-  // If running locally, create a new database and use it
-  if(!process.env.RDS_DB_NAME) {
-    connection.query("CREATE DATABASE IF NOT EXISTS boatDataDb", function (err, result) {
-    if (err) throw err;
-  });
-    connection.query("USE boatDataDb");
-  }else{
-    connection.query(`USE ${process.env.RDS_DB_NAME}`);
-  }
-
-  var query = "CREATE TABLE IF NOT EXISTS boats (laneData TEXT)"
-  connection.query(query, function (err, result) {
-    if (err) throw err;
-  });
-
-  //if table is empty, insert default data with empty lanes
-  connection.query("INSERT INTO boats (laneData) SELECT ? WHERE NOT EXISTS (SELECT * FROM boats)", JSON.stringify(defaultData.laneData), function (error, results, fields) {
-    if (error) throw error;
-  });
+//if table is empty, insert default data with empty lanes
+connection.query("INSERT INTO boats (laneData) SELECT ? WHERE NOT EXISTS (SELECT * FROM boats)", JSON.stringify(defaultData.laneData), function (error, results, fields) {
+  if (error) throw error;
 });
 
 module.exports = app

@@ -1,14 +1,7 @@
 var mysql = require('mysql');
 var express = require('express');
 var router = express.Router();
-
-var connection = mysql.createConnection({
-  host: process.env.RDS_HOSTNAME || "localhost",
-  user: process.env.RDS_USERNAME || "root",
-  password: process.env.RDS_PASSWORD || "",
-  port: process.env.RDS_PORT,
-  database: process.env.RDS_DB_NAME || "boatDataDb"
-});    
+var connection = require('../dbconnection');
 
 //update the board data entry
 router.put('/', function(req, res) {
