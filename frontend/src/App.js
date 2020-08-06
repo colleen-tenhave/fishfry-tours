@@ -12,8 +12,19 @@ class App extends Component {
     };
   }
   
+
+  getFetchUrl(){
+    //use local url if running in development
+    if(process.env.NODE_ENV == 'development'){
+      return "http://localhost:8080/boats";
+    }else{
+      return "http://fishfry-backend.us-east-2.elasticbeanstalk.com/boats"
+    }
+  }
+  
   fetchData() {
-    fetch("http://fishfry-backend.us-east-2.elasticbeanstalk.com/boats")
+    const fetchUrl = this.getFetchUrl();
+    fetch(fetchUrl)
     .then(res => res.text())
     .then((res) => {
       var resObject = JSON.parse(res);
@@ -35,7 +46,7 @@ class App extends Component {
               View or update the fleet below
           </p>
         </header>
-          <BoatBoard data={this.state.data}/>
+          <BoatBoard data={this.state.data} getFetchUrl={this.getFetchUrl}/>
       </div>
     );
   }
