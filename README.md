@@ -23,3 +23,12 @@ Run the following commands:
 
 Open http://localhost:3000/  
 You should see the app!
+
+### Deploying
+
+The backend is deployed using AWS ElasticBeanstalk.
+
+Run the following commands to deploy:  
+`eb use env`, where env is the environment you want to deploy to.  
+`eb deploy`.
+
