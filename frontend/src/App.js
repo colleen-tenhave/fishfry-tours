@@ -1,19 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import BoatBoard from './BoatBoard';
-import AddBoatButton from './AddBoatButton';
 import './App.css';
 
-function App() {
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: {
+        lanes: []
+      }
+    };
+  }
   
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Welcome to Fishfry</h1>
-      </header>
-        <AddBoatButton />
-        <BoatBoard />
-    </div>
-  );
+  fetchData() {
+    fetch("http://localhost:8080/boats")
+    .then(res => res.text())
+    .then((res) => {
+      var resObject = JSON.parse(res);
+      this.setState({data: JSON.parse(resObject)});
+    })
+  }
+
+  componentWillMount() {
+    //fetching boat data
+    this.fetchData();
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1>Welcome to Fishfry's Fleet Tracker</h1>
+        </header>
+          <BoatBoard data={this.state.data}/>
+      </div>
+    );
+  }
 }
 
 export default App;
