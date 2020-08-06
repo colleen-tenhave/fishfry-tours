@@ -13,7 +13,7 @@ class App extends Component {
   }
   
   fetchData() {
-    fetch("http://localhost:8080/boats")
+    fetch("http://fishfry-backend.us-east-2.elasticbeanstalk.com/boats")
     .then(res => res.text())
     .then((res) => {
       var resObject = JSON.parse(res);
