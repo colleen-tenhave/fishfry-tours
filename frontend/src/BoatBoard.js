@@ -1,41 +1,45 @@
-import Board from 'react-trello';
+import Board, { createTranslate } from 'react-trello';
 import React, { Component } from 'react';
 
 class BoatBoard extends Component {
   constructor(props) {
     super(props);
+    this.handleDataChange = this.handleDataChange.bind(this);
+    this.state = {
+      data: this.props.data
+    }
+  }
+
+  handleDataChange(newData) {
+    fetch(
+      "http://localhost:8080/boats", {
+        method: 'put',
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(newData)
+      }
+    )  
   }
 
   render() {
-    const data = {
-        lanes: [
-          {
-            id: 'lane-1',
-            title: 'Docked',
-            cards: []
-          },
-          {
-            id: 'lane-2',
-            title: 'Outbound to Sea',
-            cards: []
-          },
-          {
-            id: 'lane-3',
-            title: 'Inbound to Harbour',
-            cards: []
-          },
-          {
-            id: 'lane-4',
-            title: 'Maintenance',
-            cards: []
-          },
-        ]
+    const TEXTS = {
+      "Click to add card": "+ Click to add new boat",
+      "button": {
+        "Add card": "Submit",
+        "Cancel": "Cancel"
+      },
+      "placeholder": {
+        "title": "Boat Name",
+        "description": "Boat Description"
+      }
     }
-      return (
-        <div className="BoatBoard">
-          <Board data={data} editable={true} style={{backgroundColor: 'white'}} />
-        </div>
-      );
+  
+    return (
+      <div className="BoatBoard">
+        <Board t={createTranslate(TEXTS)}  data={this.props.data} onDataChange={this.handleDataChange} editable={true} style={{backgroundColor: 'white'}} />
+      </div>
+    );
   }
 }
 export default BoatBoard;
