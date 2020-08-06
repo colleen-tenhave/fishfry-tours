@@ -10,21 +10,17 @@ var connection = mysql.createConnection({
 });    
 
 router.put('/', function(req, res) {
-    console.log(req.body);
     var postData  = req.body;
     connection.query('UPDATE boats SET laneData = ? LIMIT 1', JSON.stringify(postData), function (error, results, fields) {
         if (error) throw error;
-        console.log('posting');
         res.end(JSON.stringify(results));
       });
 });
 
 router.post('/', function(req, res) {
-  console.log(req.body);
   var postData  = req.body;
   connection.query('UPDATE boats SET laneData = ? LIMIT 1', JSON.stringify(postData), function (error, results, fields) {
       if (error) throw error;
-      console.log('posting');
       res.end(JSON.stringify(results));
     });
 });

@@ -79,18 +79,15 @@ connection.connect(function(err) {
   if (err) throw err;
   connection.query("CREATE DATABASE IF NOT EXISTS boatDataDb", function (err, result) {
     if (err) throw err;
-    console.log("Database created");
   });
   connection.query("USE boatDataDb");
   var query = "CREATE TABLE IF NOT EXISTS boats (laneData TEXT)"
   connection.query(query, function (err, result) {
     if (err) throw err;
-    console.log("Table created");
   });
   //if table is empty, insert default data
   connection.query("INSERT INTO boats (laneData) SELECT ? WHERE NOT EXISTS (SELECT * FROM Boats)", JSON.stringify(defaultData.laneData), function (error, results, fields) {
     if (error) throw error;
-    console.log("default data inserted");
   });
 });
 
