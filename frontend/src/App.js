@@ -30,7 +30,10 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>Welcome to Fishfry's Fleet Tracker</h1>
+          <h1>Fishfry Tours Fleet Tracker</h1>
+          <p className="App-subtitle">
+              View or update the fleet below
+          </p>
         </header>
           <BoatBoard data={this.state.data}/>
       </div>
