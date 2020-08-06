@@ -1,5 +1,6 @@
 # fishfry-tours
-
+![mobile screenshot](https://github.com/colleen-tenhave/fishfry-tours/blob/master/frontend/public/fishfry-mobile.jpg?raw=true)
+![desktop screenshot](https://github.com/colleen-tenhave/fishfry-tours/blob/master/frontend/public/fishfry-desktop.jpg?raw=true)
 ## Getting Started
 
 ### Prerequisites
